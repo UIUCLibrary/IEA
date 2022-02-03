@@ -1,0 +1,49 @@
+﻿@model IllinoisExpertsManualAdditions.Models.Addition
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .ids{
+        margin-top:30px;
+    }
+    .lst{
+        width:300px;
+        margin: 0 auto 0 auto;
+    }
+    .nid {
+        float:left;
+        display: block;
+        width: 50%;
+        text-align:left;
+    }
+    .dta {
+        text-align:left;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Illinois Experts Manual Additions</h1>
+    <p>Add your list of netids to add to the Illinois Experts Db loader</p>
+    <div class="alert-success"> @Html.Raw(TempData["msg"])</div>
+    @using (Html.BeginForm("ProcessIds", "Home"))
+    {
+        @Html.TextArea("netids", "", new { @class = "form-control", @value="Add netids here", rows="20" })<br /><input type="submit" name="submit" value="Upload" class="btn btn-primary" />
+    }
+</div>
+<div class="text-center ids">
+    <p id="listhead" onclick="showDl()">ID List</p>
+    <dl id="nlist" class="lst" style="display:none">
+        @foreach (var item in Model.Netids)
+        {
+            <dd class="nid">@item.Netid</dd>
+            <dd class="dta">@item.Dateadded.ToShortDateString()</dd>
+
+        }
+    </dl>
+</div>
+<script language="javascript">
+    function showDl() {
+        document.getElementById("nlist").style.display = "block";
+    }
+</script>
